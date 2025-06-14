@@ -1,0 +1,31 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#3b82f6" rx="64"/>
+  
+  <!-- Books stack -->
+  <!-- Book 1 (bottom) -->
+  <rect x="120" y="320" width="272" height="40" fill="#dc2626" rx="4"/>
+  <rect x="120" y="320" width="20" height="40" fill="#b91c1c"/>
+  
+  <!-- Book 2 -->
+  <rect x="140" y="280" width="252" height="40" fill="#16a34a" rx="4"/>
+  <rect x="140" y="280" width="20" height="40" fill="#15803d"/>
+  
+  <!-- Book 3 -->
+  <rect x="160" y="240" width="232" height="40" fill="#9333ea" rx="4"/>
+  <rect x="160" y="240" width="20" height="40" fill="#7c3aed"/>
+  
+  <!-- Book 4 -->
+  <rect x="180" y="200" width="212" height="40" fill="#ca8a04" rx="4"/>
+  <rect x="180" y="200" width="20" height="40" fill="#a16207"/>
+  
+  <!-- Book 5 (top) -->
+  <rect x="200" y="160" width="192" height="40" fill="#db2777" rx="4"/>
+  <rect x="200" y="160" width="20" height="40" fill="#be185d"/>
+  
+  <!-- Book emoji/icon -->
+  <text x="256" y="140" text-anchor="middle" font-size="48" fill="white">📚</text>
+  
+  <!-- Base/platform -->
+  <ellipse cx="256" cy="380" rx="150" ry="20" fill="#8b5cf6" opacity="0.6"/>
+</svg>

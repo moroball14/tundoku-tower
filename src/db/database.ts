@@ -20,11 +20,9 @@ export class DatabaseManager {
       // 既存のデータベースがあるかチェック
       const existingData = localStorage.getItem("tundoku-db");
       if (existingData) {
-        console.log("Loading existing database from localStorage");
         const uint8Array = new Uint8Array(JSON.parse(existingData));
         this.db = new this.SQL.Database(uint8Array);
       } else {
-        console.log("Creating new database");
         this.db = new this.SQL.Database();
         await this.createTables();
       }
@@ -77,8 +75,6 @@ export class DatabaseManager {
       ...book,
     };
 
-    console.log("Adding book to database:", newBook.title);
-
     const stmt = this.db.prepare(`
       INSERT INTO books (
         id, isbn, title, authors, publisher, published_date, 
@@ -103,7 +99,6 @@ export class DatabaseManager {
 
     stmt.free();
     this.saveToLocalStorage();
-    console.log("Book saved to database and localStorage");
 
     return newBook;
   }
@@ -116,8 +111,6 @@ export class DatabaseManager {
     }
 
     query += " ORDER BY added_at DESC";
-
-    console.log("Executing query:", query);
 
     const results: Book[] = [];
     const stmt = this.db.prepare(query);
@@ -143,7 +136,6 @@ export class DatabaseManager {
     }
     
     stmt.free();
-    console.log("Retrieved books:", results.length);
     return results;
   }
 
