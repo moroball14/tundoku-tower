@@ -11,7 +11,8 @@ export default function BookTower({ books, onBookClick }: BookTowerProps) {
 
   useEffect(() => {
     if (books.length > 0) {
-      const latestBook = books[0];
+      // 最新の本（配列の最後）をアニメーション対象とする
+      const latestBook = books[books.length - 1];
       setAnimatingBooks(prev => new Set(prev).add(latestBook.id));
       
       const timer = setTimeout(() => {
@@ -20,7 +21,7 @@ export default function BookTower({ books, onBookClick }: BookTowerProps) {
           newSet.delete(latestBook.id);
           return newSet;
         });
-      }, 1000);
+      }, 1200);
 
       return () => clearTimeout(timer);
     }
@@ -58,25 +59,30 @@ export default function BookTower({ books, onBookClick }: BookTowerProps) {
           📚 積読タワー ({books.length}冊)
         </h2>
         
-        <div className="relative flex flex-col-reverse items-center">
-          {books.map((book, index) => {
+        <div className="relative flex flex-col items-center">
+          {books.slice().reverse().map((book, index) => {
             const height = getBookHeight(book);
             const isAnimating = animatingBooks.has(book.id);
+            const originalIndex = books.findIndex(b => b.id === book.id);
             
             return (
               <div
                 key={book.id}
                 className={`
                   relative w-32 rounded-sm shadow-md cursor-pointer
-                  transition-all duration-1000 ease-out
+                  transition-all duration-700 ease-out
                   hover:scale-105 hover:shadow-lg
                   ${getBookColor(book)}
-                  ${isAnimating ? 'animate-bounce' : ''}
                 `}
                 style={{ 
                   height: `${height}px`,
-                  zIndex: books.length - index,
-                  transform: isAnimating ? 'translateY(-20px)' : 'translateY(0)'
+                  zIndex: index + 1,
+                  transform: isAnimating 
+                    ? 'translateY(-100px) rotateZ(5deg)' 
+                    : 'translateY(0) rotateZ(0deg)',
+                  animation: isAnimating 
+                    ? 'bookDrop 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards' 
+                    : 'none'
                 }}
                 onClick={() => onBookClick(book)}
                 title={`${book.title} - ${book.authors.join(', ')}`}

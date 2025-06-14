@@ -110,7 +110,7 @@ export class DatabaseManager {
       query += " WHERE status = '" + status + "'";
     }
 
-    query += " ORDER BY added_at DESC";
+    query += " ORDER BY added_at ASC";
 
     const results: Book[] = [];
     const stmt = this.db.prepare(query);

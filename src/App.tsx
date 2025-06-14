@@ -38,7 +38,7 @@ function App() {
   const handleBookAdd = async (bookData: any) => {
     try {
       const newBook = await dbManager.addBook(bookData);
-      setBooks(prev => [newBook, ...prev]);
+      setBooks(prev => [...prev, newBook]);
     } catch (error) {
       console.error('Failed to add book:', error);
       alert('書籍の追加に失敗しました。');

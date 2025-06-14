@@ -31,3 +31,25 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@keyframes bookDrop {
+  0% {
+    transform: translateY(-100px) rotateZ(5deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-10px) rotateZ(2deg);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translateY(5px) rotateZ(-1deg);
+    opacity: 1;
+  }
+  85% {
+    transform: translateY(-2px) rotateZ(0.5deg);
+  }
+  100% {
+    transform: translateY(0) rotateZ(0deg);
+    opacity: 1;
+  }
+}
