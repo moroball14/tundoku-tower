@@ -20,9 +20,11 @@ export class DatabaseManager {
       // 既存のデータベースがあるかチェック
       const existingData = localStorage.getItem("tundoku-db");
       if (existingData) {
+        console.log("Loading existing database from localStorage");
         const uint8Array = new Uint8Array(JSON.parse(existingData));
         this.db = new this.SQL.Database(uint8Array);
       } else {
+        console.log("Creating new database");
         this.db = new this.SQL.Database();
         await this.createTables();
       }
@@ -75,6 +77,8 @@ export class DatabaseManager {
       ...book,
     };
 
+    console.log("Adding book to database:", newBook.title);
+
     const stmt = this.db.prepare(`
       INSERT INTO books (
         id, isbn, title, authors, publisher, published_date, 
@@ -99,63 +103,64 @@ export class DatabaseManager {
 
     stmt.free();
     this.saveToLocalStorage();
+    console.log("Book saved to database and localStorage");
 
     return newBook;
   }
 
   async getBooks(status?: string): Promise<Book[]> {
     let query = "SELECT * FROM books";
-    const params: any[] = [];
 
     if (status) {
-      query += " WHERE status = ?";
-      params.push(status);
+      query += " WHERE status = '" + status + "'";
     }
 
     query += " ORDER BY added_at DESC";
 
-    const stmt = this.db.prepare(query);
-    const result = stmt.all(params);
-    stmt.free();
+    console.log("Executing query:", query);
 
-    return result.map((row: any) => ({
-      id: row.id,
-      isbn: row.isbn,
-      title: row.title,
-      authors: JSON.parse(row.authors),
-      publisher: row.publisher,
-      publishedDate: row.published_date,
-      description: row.description,
-      thumbnail: row.thumbnail,
-      pageCount: row.page_count,
-      categories: JSON.parse(row.categories || "[]"),
-      status: row.status,
-      addedAt: row.added_at,
-      startedAt: row.started_at,
-      completedAt: row.completed_at,
-    }));
+    const results: Book[] = [];
+    const stmt = this.db.prepare(query);
+    
+    while (stmt.step()) {
+      const row = stmt.getAsObject();
+      results.push({
+        id: row.id as string,
+        isbn: row.isbn as string,
+        title: row.title as string,
+        authors: JSON.parse(row.authors as string),
+        publisher: row.publisher as string,
+        publishedDate: row.published_date as string,
+        description: row.description as string,
+        thumbnail: row.thumbnail as string,
+        pageCount: row.page_count as number,
+        categories: JSON.parse((row.categories as string) || "[]"),
+        status: row.status as Book["status"],
+        addedAt: row.added_at as string,
+        startedAt: row.started_at as string,
+        completedAt: row.completed_at as string,
+      });
+    }
+    
+    stmt.free();
+    console.log("Retrieved books:", results.length);
+    return results;
   }
 
   async updateBookStatus(id: string, status: Book["status"]): Promise<void> {
     const now = new Date().toISOString();
-    let updateField = "";
+    let query = `UPDATE books SET status = ? WHERE id = ?`;
+    let params = [status, id];
 
     if (status === "reading") {
-      updateField = ", started_at = ?";
+      query = `UPDATE books SET status = ?, started_at = ? WHERE id = ?`;
+      params = [status, now, id];
     } else if (status === "completed") {
-      updateField = ", completed_at = ?";
+      query = `UPDATE books SET status = ?, completed_at = ? WHERE id = ?`;
+      params = [status, now, id];
     }
 
-    const stmt = this.db.prepare(`
-      UPDATE books SET status = ?${updateField} WHERE id = ?
-    `);
-
-    const params = [status];
-    if (updateField) {
-      params.push(now);
-    }
-    params.push(id);
-
+    const stmt = this.db.prepare(query);
     stmt.run(params);
     stmt.free();
     this.saveToLocalStorage();
