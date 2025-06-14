@@ -4,16 +4,18 @@
 
 ## ✨ 機能
 
-### MVP機能
-- **📖 書籍検索・登録**: ISBNまたはタイトルでGoogle Books APIから書籍情報を取得
+### MVP 機能
+
+- **📖 書籍検索・登録**: ISBN またはタイトルで Google Books API から書籍情報を取得
 - **🏗️ 積読タワー表示**: 登録した本を視覚的なタワー形式で表示
 - **📊 読書ステータス管理**: 未読・読書中・読了の管理
-- **💾 ローカルストレージ**: SQLite WebAssemblyによるブラウザ内データ保存
+- **💾 ローカルストレージ**: SQLite WebAssembly によるブラウザ内データ保存
 
 ### 特徴
+
 - **🌐 ブラウザ完結**: インストール・アカウント不要
-- **📱 PWA対応**: オフライン利用・ホーム画面追加可能
-- **🎨 直感的UI**: 本を積む楽しさを表現した視覚的デザイン
+- **📱 PWA 対応**: オフライン利用・ホーム画面追加可能
+- **🎨 直感的 UI**: 本を積む楽しさを表現した視覚的デザイン
 - **📊 統計表示**: 未読・読書中・読了の冊数を一目で確認
 
 ## 🛠️ 技術スタック
@@ -28,21 +30,25 @@
 ## 🚀 開発・実行
 
 ### 必要な依存関係のインストール
+
 ```bash
 npm install
 ```
 
 ### 開発サーバーの起動
+
 ```bash
 npm run dev
 ```
 
 ### ビルド
+
 ```bash
 npm run build
 ```
 
 ### プレビュー
+
 ```bash
 npm run preview
 ```
@@ -67,7 +73,7 @@ src/
 
 ## 🎯 使い方
 
-1. **書籍を検索**: ISBNまたはタイトルで書籍を検索
+1. **書籍を検索**: ISBN またはタイトルで書籍を検索
 2. **本を追加**: 検索結果から本を選択して積読タワーに追加
 3. **タワーを眺める**: 積み上がった本のタワーを楽しむ
 4. **読書管理**: 本をクリックしてステータスを更新
@@ -78,41 +84,20 @@ src/
 - バーコード読み取り機能
 - メモ・感想記録
 - 読書統計・グラフ表示
-- SNS共有機能
+- SNS 共有機能
 - ダークモード対応
 
 ## 🚀 デプロイ
 
-### GitHub Pagesへの自動デプロイ
+### GitHub Pages への自動デプロイ
 
-このプロジェクトはGitHub Actionsを使用してGitHub Pagesへの自動デプロイが設定されています。
+このプロジェクトは GitHub Actions を使用して GitHub Pages への自動デプロイが設定されています。
 
-#### 初回デプロイ設定
+#### デプロイ設定
 
-1. **GitHubリポジトリを作成**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/USERNAME/tundoku-tower.git
-   git push -u origin main
-   ```
-
-2. **GitHub Pagesの有効化**
-   - GitHubリポジトリの「Settings」→「Pages」へ移動
-   - Source: 「GitHub Actions」を選択
-   - 自動的にワークフローが実行され、デプロイされます
-
-3. **アクセス**
-   - デプロイ後、`https://USERNAME.github.io/tundoku-tower/` でアクセス可能
-
-#### 自動デプロイの仕組み
-
-- `main`ブランチへのpush時に自動実行
-- Node.js環境でビルド
-- 静的ファイルをGitHub Pagesにデプロイ
-- PWA対応でオフライン利用も可能
+- `main`ブランチへの push 時に自動実行
+- Node.js 環境でビルド
+- 静的ファイルを GitHub Pages にデプロイ
 
 ### 手動デプロイ
 
