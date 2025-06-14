@@ -2,7 +2,7 @@ import type { Book } from "../types/book";
 
 declare global {
   interface Window {
-    initSqlJs: () => Promise<any>;
+    initSqlJs: (params: any) => Promise<any>;
   }
 }
 
@@ -114,7 +114,7 @@ export class DatabaseManager {
 
     const results: Book[] = [];
     const stmt = this.db.prepare(query);
-    
+
     while (stmt.step()) {
       const row = stmt.getAsObject();
       results.push({
@@ -134,7 +134,7 @@ export class DatabaseManager {
         completedAt: row.completed_at as string,
       });
     }
-    
+
     stmt.free();
     return results;
   }
