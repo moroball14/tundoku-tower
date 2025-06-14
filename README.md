@@ -81,6 +81,45 @@ src/
 - SNS共有機能
 - ダークモード対応
 
+## 🚀 デプロイ
+
+### GitHub Pagesへの自動デプロイ
+
+このプロジェクトはGitHub Actionsを使用してGitHub Pagesへの自動デプロイが設定されています。
+
+#### 初回デプロイ設定
+
+1. **GitHubリポジトリを作成**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git branch -M main
+   git remote add origin https://github.com/USERNAME/tundoku-tower.git
+   git push -u origin main
+   ```
+
+2. **GitHub Pagesの有効化**
+   - GitHubリポジトリの「Settings」→「Pages」へ移動
+   - Source: 「GitHub Actions」を選択
+   - 自動的にワークフローが実行され、デプロイされます
+
+3. **アクセス**
+   - デプロイ後、`https://USERNAME.github.io/tundoku-tower/` でアクセス可能
+
+#### 自動デプロイの仕組み
+
+- `main`ブランチへのpush時に自動実行
+- Node.js環境でビルド
+- 静的ファイルをGitHub Pagesにデプロイ
+- PWA対応でオフライン利用も可能
+
+### 手動デプロイ
+
+```bash
+npm run deploy
+```
+
 ## 📝 ライセンス
 
 MIT License
