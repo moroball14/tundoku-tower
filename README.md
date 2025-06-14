@@ -1,54 +1,86 @@
-# React + TypeScript + Vite
+# 📚 積読タワー
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+積読を楽しく管理する読書アプリです。本を「積むことも含めて楽しい体験」として捉え、読書のモチベーションを高めることを目的としています。
 
-Currently, two official plugins are available:
+## ✨ 機能
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### MVP機能
+- **📖 書籍検索・登録**: ISBNまたはタイトルでGoogle Books APIから書籍情報を取得
+- **🏗️ 積読タワー表示**: 登録した本を視覚的なタワー形式で表示
+- **📊 読書ステータス管理**: 未読・読書中・読了の管理
+- **💾 ローカルストレージ**: SQLite WebAssemblyによるブラウザ内データ保存
 
-## Expanding the ESLint configuration
+### 特徴
+- **🌐 ブラウザ完結**: インストール・アカウント不要
+- **📱 PWA対応**: オフライン利用・ホーム画面追加可能
+- **🎨 直感的UI**: 本を積む楽しさを表現した視覚的デザイン
+- **📊 統計表示**: 未読・読書中・読了の冊数を一目で確認
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ 技術スタック
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- **フロントエンド**: React 19 + TypeScript
+- **ビルドツール**: Vite
+- **スタイリング**: Tailwind CSS
+- **データベース**: SQLite (WebAssembly)
+- **API**: Google Books API
+- **PWA**: Service Worker + Web App Manifest
+
+## 🚀 開発・実行
+
+### 必要な依存関係のインストール
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+### 開発サーバーの起動
+```bash
+npm run dev
 ```
+
+### ビルド
+```bash
+npm run build
+```
+
+### プレビュー
+```bash
+npm run preview
+```
+
+## 📁 プロジェクト構成
+
+```
+src/
+├── components/          # Reactコンポーネント
+│   ├── BookSearch.tsx  # 書籍検索コンポーネント
+│   ├── BookTower.tsx   # 積読タワー表示
+│   └── BookModal.tsx   # 書籍詳細モーダル
+├── db/                 # データベース関連
+│   ├── database.ts     # SQLite WebAssembly管理
+│   └── schema.sql      # データベーススキーマ
+├── services/           # 外部API連携
+│   └── bookApi.ts      # Google Books API
+├── types/              # 型定義
+│   └── book.ts         # 書籍関連の型
+└── App.tsx             # メインアプリケーション
+```
+
+## 🎯 使い方
+
+1. **書籍を検索**: ISBNまたはタイトルで書籍を検索
+2. **本を追加**: 検索結果から本を選択して積読タワーに追加
+3. **タワーを眺める**: 積み上がった本のタワーを楽しむ
+4. **読書管理**: 本をクリックしてステータスを更新
+5. **統計確認**: 読書の進捗を数値で確認
+
+## 🔮 今後の拡張予定
+
+- バーコード読み取り機能
+- メモ・感想記録
+- 読書統計・グラフ表示
+- SNS共有機能
+- ダークモード対応
+
+## 📝 ライセンス
+
+MIT License
